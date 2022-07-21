@@ -35,6 +35,10 @@
                     </form>
                     <p class="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>
                 </div>
+                <div class=" text-center text-sm-start mt-5 ms-3">
+                    &copy; <a href="#">Fatah At Thariq</a>, All Right Reserved. 
+                    <br>Bootstrap Template By <a href="https://themewagon.com" target="_blank">ThemeWagon.</a>
+                </div>
             </div>
         </div>
     </div>
