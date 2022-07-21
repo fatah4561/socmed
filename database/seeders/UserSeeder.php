@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'email' => 'fatah@gmail.com',
             'bio' => "My name is fatah a web developer",
             'password' => Hash::make('fatah123'),
+            'profile_pic' => "uploads/user/pictures/profile-2.png",
         ]);
         $user = User::create([
             'name' => 'John Doe',
@@ -29,6 +30,31 @@ class UserSeeder extends Seeder
             'email' => 'john@gmail.com',
             'bio' => 'My name is john doe a photographer',
             'password' => Hash::make('john123'),
+            'profile_pic' => "uploads/user/pictures/profile-1.png",
+        ]);
+        $user = User::create([
+            'name' => 'Siri',
+            'username' => 'siri132',
+            'email' => 'siri@gmail.com',
+            'bio' => 'My name is siri an AI',
+            'password' => Hash::make('siri123'),
+            'profile_pic' => "uploads/user/pictures/profile-3.png",
+        ]);
+        $user = User::create([
+            'name' => 'April',
+            'username' => 'april132',
+            'email' => 'april@gmail.com',
+            'bio' => 'Aku adalah april sebuah bulan',
+            'password' => Hash::make('april123'),
+            'profile_pic' => "uploads/user/pictures/profile-4.png",
+        ]);
+        $user = User::create([
+            'name' => 'Ucok',
+            'username' => 'ucok132',
+            'email' => 'ucok@gmail.com',
+            'bio' => 'Urang teh ucok gan',
+            'password' => Hash::make('ucok123'),
+            'profile_pic' => "uploads/user/pictures/profile-6.png",
         ]);
     }
 }

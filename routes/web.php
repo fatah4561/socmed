@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Dashboard;
+use App\Http\Livewire\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +26,13 @@ Route::get('/test-login', function () {
     return view('layout.signin');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', [Dashboard::class,  '__invoke'])->name('dashboard');
+    Route::get('/profile/{id}', [Profile::class,  '__invoke'])->name('profile');
+});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

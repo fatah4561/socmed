@@ -17,10 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('post_id')->references('id')->on('posts')->cascadeOnDelete();
-            $table->string('title');
             $table->text('text');
-            $table->string('hashtag');
-            $table->string('picture');
+            $table->string('picture')->nullable();
             $table->timestamps();
         });
     }

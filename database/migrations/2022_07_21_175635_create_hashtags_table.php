@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('hashtags', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->text('text');
-            $table->string('picture')->nullable();
+            $table->foreignId('comment_id')->nullable();
+            $table->foreign('comment_id')->references('id')->on('comments')->cascadeOnDelete();
+            $table->foreignId('post_id')->nullable();
+            $table->foreign('post_id')->references('id')->on('posts')->cascadeOnDelete();
+            $table->string('tag')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('hastags');
     }
 };
