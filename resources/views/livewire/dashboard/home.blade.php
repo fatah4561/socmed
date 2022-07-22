@@ -82,13 +82,13 @@
                     @endif
                     <form action="" >
                         <div class="form-floating mt-3">
-                            <textarea wire:model='new_text'  maxlength="50" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 150px;"></textarea>
+                            <textarea wire:model='new_text'  maxlength="250" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 150px;"></textarea>
                             <label for="floatingTextarea">What's Happening?</label>
                         </div>
                         <div class="mb-3 mt-3">
                             <div class="row">
                                 <div class="col-lg-auto">
-                                    <input wire:model='new_pic' class="form-control  bg-dark"  type="file">
+                                    <input wire:model='new_pic' class="form-control  bg-dark" accept="image/*"  type="file">
                                 </div>
                                 <div class="col-sm-auto" wire:loading wire:target="new_pic">
                                     <button class="btn btn-primary btn-md" type="button" disabled>
@@ -153,13 +153,13 @@
                     @elseif ($edit_post == true && $post->id == $edit_post_id)
                         <form action="" >
                             <div class="form-floating mt-3">
-                                <textarea wire:model='update_post_text.{{$post->id}}'  maxlength="50" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 150px;"></textarea>
+                                <textarea wire:model='update_post_text.{{$post->id}}'  maxlength="250" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 150px;"></textarea>
                                 <label for="floatingTextarea">New Description</label>
                             </div>
                             <div class="mb-3 mt-3">
                                 <div class="row">
                                     <div class="col-lg-auto">
-                                        <input wire:model='update_post_pic.{{$post->id}}' class="form-control  bg-dark"  type="file">
+                                        <input wire:model='update_post_pic.{{$post->id}}' class="form-control  bg-dark" accept="image/*"   type="file">
                                     </div>
                                     <div class="col-sm-auto" wire:loading wire:target="update_post_pic.{{$post->id}}">
                                         <button class="btn btn-primary btn-md" type="button" disabled>
@@ -239,8 +239,8 @@
                                                     <div class="">
                                                         <div class="row">
                                                             <div class="col-lg">
-                                                                <input wire:model="update_comment_text.{{$comment->id}}" class="form-control  bg-dark" type="text">
-                                                                <input wire:model="update_comment_pic.{{$comment->id}}" class="form-control form-control-sm bg-dark mt-2" type="file">
+                                                                <input maxlength="250" wire:model="update_comment_text.{{$comment->id}}" class="form-control  bg-dark" type="text">
+                                                                <input wire:model="update_comment_pic.{{$comment->id}}" class="form-control form-control-sm bg-dark mt-2" accept="image/*"  type="file">
                                                             </div>
                                                             <div class="col-sm-auto mt-3">
                                                                 <button wire:click="updateComment({{$comment->id}})" type="button" class="btn btn-outline-primary">Update</button>
@@ -258,8 +258,8 @@
                             <div class="">
                                 <div class="row">
                                     <div class="col-lg">
-                                        <input wire:model="posts_detail.{{$post->id}}" class="form-control  bg-dark" type="text">
-                                        <input wire:model="file_comments.{{$post->id}}" class="form-control form-control-sm bg-dark mt-2" type="file">
+                                        <input wire:model="posts_detail.{{$post->id}}" class="form-control  bg-dark" maxlength="250" type="text">
+                                        <input wire:model="file_comments.{{$post->id}}" class="form-control form-control-sm bg-dark mt-2" accept="image/*"  type="file">
                                     </div>
                                     <div class="col-sm-auto mt-3">
                                         <button wire:click="comment({{$post->id}})" type="button" class="btn btn-outline-primary">Comment</button>
