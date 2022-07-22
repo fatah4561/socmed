@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Profile;
+use App\Http\Livewire\Guest;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,11 @@ use App\Http\Livewire\Profile;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect()->route('index-guest');
+});
+
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/index-guest', [Guest::class,  '__invoke'])->name('index-guest');
 });
 
 Route::group(['middleware' => 'auth'], function () {
