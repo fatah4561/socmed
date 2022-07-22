@@ -1,7 +1,17 @@
-## About Author
+# About Author
+
 Nama : Fatah At Thariq
 Kelas : 3MI01
 NIM / NRP : 190613015
+
+## Instalasi
+
+```
+composer install
+php artisan migrate:fresh
+php artisan db:seed
+```
+
 
 ## License
 
