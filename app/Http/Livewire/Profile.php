@@ -11,7 +11,9 @@ use App\Models\User;
 class Profile extends Component
 {
 	use WithFileUploads;
-
+    /**
+     * inisialisasi data kosong
+     */
     public $user_id,
     $user,
     $name,
@@ -29,11 +31,18 @@ class Profile extends Component
     $is_disabled,
     $edit_button;
 
+    /**
+     * render() ialah function yang digunakan untuk mereturn view
+     */
     public function render()
     {
         return view('livewire.profile.profile')->extends('livewire.profile.index')->section('content');
     }
 
+    /**
+     * mount() ialah function yang dijalankan 1x ketika halaman dibuka,
+     * mount akan mengisikan variabel dengan nilai yang diinginkan (inisialisasi data)
+     */
     public function mount($id)
     {
         $this->is_disabled = "disabled";
@@ -50,6 +59,9 @@ class Profile extends Component
         $this->profile_pic = $this->user->profile_pic;
     }
 
+    /**
+     * clear() function yang digunakan untuk mereset inputan dan merefresh data
+     */
     public function clear()
     {
         $this->edit_button = "Edit";
@@ -61,6 +73,10 @@ class Profile extends Component
 
     }
 
+    /**
+     * update() function untuk memasuki update mode profile dan melakukan perubahan
+     * data profile termasuk bio
+     */
     public function update()
     {
         if($this->is_disabled == "disabled"){

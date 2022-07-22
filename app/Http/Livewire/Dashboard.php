@@ -16,7 +16,9 @@ use App\Models\Hashtag;
 class Dashboard extends Component
 {
 	use WithFileUploads;
-
+    /**
+     * inisialisasi data kosong
+     */
     public $user_id, 
     $new_title, 
     $new_text, 
@@ -39,11 +41,18 @@ class Dashboard extends Component
     $update_comment_text, 
     $update_comment_pic = [];
 
+    /**
+     * render() ialah function yang digunakan untuk mereturn view
+     */
     public function render()
     {
         return view('livewire.dashboard.home')->layout('livewire.dashboard.index')->section('body');
     }
 
+    /**
+     * mount() ialah function yang dijalankan 1x ketika halaman dibuka,
+     * mount akan mengisikan variabel dengan nilai yang diinginkan (inisialisasi data)
+     */
     public function mount()
     {
         $this->disabled = false;
@@ -57,6 +66,10 @@ class Dashboard extends Component
         $this->refreshComment();
     }
 
+    /**
+     * clear() function yang digunakan untuk mereset inputan dan merefresh data posingan
+     * dan data komentar yang ditampilkan
+     */
     public function clear()
     {
         $this->disabled = false;
@@ -72,6 +85,9 @@ class Dashboard extends Component
         $this->refreshComment();
     }
 
+    /**
+     * post() function untuk membuat data postingan (create post)
+     */
     public function post()
     {
         $stored_path = null;
@@ -107,6 +123,9 @@ class Dashboard extends Component
         session()->flash('message', 'Post anda telah dibuat.');
     }
 
+    /**
+     * postData() function untuk mendapatkan data postingan (get all post)
+     */
     public function postData()
     {
         $this->posts = Post::orderBy('created_at', 'desc')->get();
@@ -116,6 +135,9 @@ class Dashboard extends Component
         }
     }
 
+    /**
+     * refreshComment() function untuk mendapatkan data komentar (get all comment)
+     */
     public function refreshComment()
     {
         $this->comments = Comment::orderBy('created_at', 'asc')->get();
@@ -124,7 +146,10 @@ class Dashboard extends Component
         }
     }
 
-
+    /**
+     * comment() function untuk membuat data comment (create comment)
+     * memerlukan parameter id postingan sebagai foreign key ke parentnya
+     */
     public function comment($post_id)
     {
         $stored_path = null;
@@ -160,6 +185,10 @@ class Dashboard extends Component
 
     }
 
+    /**
+     * searchHash() function untuk mencari (fitur search) berdasarkan hashtag yang diisikan pada
+     * inputan search
+     */
     public function searchHash()
     {
         if ($this->search == "" || $this->search == null ){
@@ -190,6 +219,12 @@ class Dashboard extends Component
         }
     }
 
+    /**
+     * editPost() function untuk membuat program dalam edit mode pada postingan
+     * yang diinginkan dengan parameter id postingan tersebut
+     * edit mode hanya dapat dilakukan untuk user yang sudah login dan
+     * pada postingan yang user tersebut buat sendiri
+     */
     public function editPost($post_id)
     {
         $this->edit_post = true;
@@ -197,7 +232,13 @@ class Dashboard extends Component
         $post = Post::where('id', $post_id)->first();
         $this->update_post_text[$post_id] = $post->text;
     }
-    
+
+    /**
+     * editComment() function untuk membuat program dalam edit mode pada komentar
+     * yang diinginkan dengan parameter id komentar tersebut
+     * edit mode hanya dapat dilakukan untuk user yang sudah login dan
+     * pada postingan yang user tersebut buat sendiri
+     */
     public function editComment($comment_id)
     {
         $this->edit_comment = true;
@@ -206,6 +247,10 @@ class Dashboard extends Component
         $this->update_comment_text[$comment_id] = $comment->text;
     }
 
+    /**
+     * updatePost() function untuk mengubah data post yang diinginkan
+     * menggunakan id postingan sebagai parameter
+     */
     public function updatePost($post_id)
     {
         $post = Post::where('id', $post_id)->first();
@@ -244,6 +289,10 @@ class Dashboard extends Component
         $this->clear();
     }
 
+    /**
+     * updateComment() function untuk mengubah data komentar yang diinginkan
+     * menggunakan id komentar sebagai parameter
+     */
     public function updateComment($comment_id)
     {
         $comment = Comment::where('id', $comment_id)->first();
@@ -281,7 +330,11 @@ class Dashboard extends Component
         $this->update_comment_pic[$comment_id] = null;
         $this->clear();
     }
-
+    /**
+     * destroyPost() function untuk menghapus data post yang diinginkan
+     * memerlukan parameter id postingan dan user harus login dan merupakan
+     * pembuat / author dari postingan tersebut
+     */
     public function destroyPost($post_id)
     {
         $post = Post::where('id', $post_id)->first();
@@ -289,6 +342,11 @@ class Dashboard extends Component
         $this->postData();
     }
 
+    /**
+     * destroyComment() function untuk menghapus data comment yang diinginkan
+     * memerlukan parameter id komentar dan user harus login dan merupakan
+     * pembuat / author dari komentar tersebut
+     */
     public function destroyComment($comment_id)
     {
         $comment = Comment::where('id', $comment_id)->first();
@@ -296,7 +354,11 @@ class Dashboard extends Component
         $this->refreshComment();
     }
 
-    // private function
+    /**
+     * private function getHashtags($string) function private yang tidak akan dapat digunakan pada
+     * blade namun akan digunakan di livewire php langsung untuk mencari hash dari text yang diisikan
+     * misal text pada postingan dan komentar, kemudian function akan mereturn array hashtags
+     */
     private function getHashtags($string) { 
         $hashtags = null;
         preg_match_all("/(#\w+)/u", $string, $matches);  

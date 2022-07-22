@@ -15,7 +15,9 @@ use App\Models\Hashtag;
 class Guest extends Component
 {
 	use WithFileUploads;
-
+    /**
+     * inisialisasi data kosong
+     */
     public $user_id, 
     $new_title, 
     $new_text, 
@@ -38,11 +40,18 @@ class Guest extends Component
     $update_comment_text, 
     $update_comment_pic = [];
 
+    /**
+     * render() ialah function yang digunakan untuk mereturn view
+     */
     public function render()
     {
         return view('livewire.guest.home')->layout('livewire.guest.index')->section('body');
     }
 
+    /**
+     * mount() ialah function yang dijalankan 1x ketika halaman dibuka,
+     * mount akan mengisikan variabel dengan nilai yang diinginkan (inisialisasi data)
+     */
     public function mount()
     {
         $this->disabled = false;
@@ -54,7 +63,11 @@ class Guest extends Component
         $this->postData();
         $this->refreshComment();
     }
-
+    
+    /**
+     * clear() function yang digunakan untuk mereset inputan dan merefresh data posingan
+     * dan data komentar yang ditampilkan
+     */
     public function clear()
     {
         $this->disabled = false;
@@ -70,15 +83,20 @@ class Guest extends Component
         $this->refreshComment();
     }
 
+    /**
+     * postData() function untuk mendapatkan data postingan (get all post)
+     */
     public function postData()
     {
         $this->posts = Post::orderBy('created_at', 'desc')->get();
-        // dd(Carbon::parse($this->posts[0]->created_at)->diffForHumans());
         foreach ($this->posts as $post){
             $this->update_post_text[$post->id] = $post->text;
         }
     }
 
+    /**
+     * refreshComment() function untuk mendapatkan data komentar (get all comment)
+     */
     public function refreshComment()
     {
         $this->comments = Comment::orderBy('created_at', 'asc')->get();
@@ -87,11 +105,19 @@ class Guest extends Component
         }
     }
 
+    /**
+     * redirectLogin() function untuk mengalihkan ke halaman login pada mode 'guest'
+     * apabila user mencoba untuk melakukan post, atau komentar.
+     */
     public function redirectLogin()
     {
         return redirect()->route('login');
     }
 
+    /**
+     * searchHash() function untuk mencari (fitur search) berdasarkan hashtag yang diisikan pada
+     * inputan search
+     */
     public function searchHash()
     {
         if ($this->search == "" || $this->search == null ){
@@ -122,7 +148,11 @@ class Guest extends Component
         }
     }
 
-    // private function
+    /**
+     * private function getHashtags($string) function private yang tidak akan dapat digunakan pada
+     * blade namun akan digunakan di livewire php langsung untuk mencari hash dari text yang diisikan
+     * misal text pada postingan dan komentar, kemudian function akan mereturn array hashtags
+     */
     private function getHashtags($string) { 
         $hashtags = null;
         preg_match_all("/(#\w+)/u", $string, $matches);  
