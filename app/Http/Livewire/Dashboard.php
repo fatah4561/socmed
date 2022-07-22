@@ -110,6 +110,7 @@ class Dashboard extends Component
     public function postData()
     {
         $this->posts = Post::orderBy('created_at', 'desc')->get();
+        // dd(Carbon::parse($this->posts[0]->created_at)->diffForHumans());
         foreach ($this->posts as $post){
             $this->update_post_text[$post->id] = $post->text;
         }

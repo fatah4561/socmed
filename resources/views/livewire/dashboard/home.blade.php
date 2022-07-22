@@ -116,6 +116,7 @@
                     <div class="d-flex w-100 position-relative">
                         <img class="rounded-circle flex-shrink-0" src="{{Storage::url($post->user->profile_pic)}}?{{ rand() }}" alt="" style="width: 40px; height: 40px;">
                         <h6 class="ms-2">{{$post->User->name}}</h6>
+                        <small class="position-absolute top-0 end-0 me-5">{{\Carbon\Carbon::parse($post->created_at)->diffForHumans()}}</small>
                         @if (Auth::user()->id == $post->user_id)
                             <div class="btn-group dropend  position-absolute top-0 end-0">
                                 <button type="button" class="btn btn-sm btn-outline-primary position-absolute top-0 end-0" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>
@@ -203,7 +204,7 @@
                                             <div class="w-100 ms-3 position-relative">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <h6 class="mb-0">{{$comment->User->name}}</h6>
-                                                    <small class="me-5">{{$comment->created_at}}</small>
+                                                    <small class="me-5">{{\Carbon\Carbon::parse($comment->created_at)->diffForHumans()}}</small>
                                                 </div>
                                                 @if ($edit_comment == false || $comment->id != $edit_comment_id)
                                                     <p class="text-start">{{$comment->text}}</p>
@@ -232,7 +233,7 @@
                                                     @endif
                                                     @if ($comment->picture != null || $comment->picture != "")
                                                         <div class="text-start">
-                                                            <img class=" flex-shrink-0 mb-3" src="{{Storage::url($comment->picture)}}?{{ rand() }}" alt="" style="width: 40px; height: 40px;">
+                                                            <img class=" flex-shrink-0 mb-3" src="{{Storage::url($comment->picture)}}?{{ rand() }}" alt="" style="width: 55px; height: 55px;">
                                                         </div>
                                                     @endif
                                                 @elseif ($edit_comment == true && $comment->id == $edit_comment_id)
