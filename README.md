@@ -1,5 +1,5 @@
 # About Author
-
+Studi kasus sosial media BNSP Junior Web Programmer
 Nama : Fatah At Thariq
 Kelas : 3MI01
 NIM / NRP : 190613015
